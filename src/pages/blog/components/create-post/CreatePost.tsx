@@ -1,16 +1,20 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { Post } from '../../../../types/blog.type';
 import { useDispatch, useSelector } from 'react-redux';
-import { cancelEditingPost, createPost, finishEditingPost } from "../../blog.reducer"
+import {
+  cancelEditingPost,
+  createPost,
+  finishEditingPost,
+} from '../../blogReducer';
 import { RootState } from '../../../../store';
 
 const initialState: Post = {
-  id: '',
   description: '',
   featuredImage: '',
   publishDate: '',
   published: false,
   title: '',
+  id: '',
 };
 
 export default function CreatePost() {
@@ -27,7 +31,7 @@ export default function CreatePost() {
     if (editingPost) {
       dispatch(finishEditingPost(formData));
     } else {
-      const formDataWithId = { ...formData, id: new Date().toISOString() };
+      const formDataWithId = { ...formData };
       dispatch(createPost(formDataWithId));
     }
     setFormData(initialState);
